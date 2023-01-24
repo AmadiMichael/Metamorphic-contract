@@ -22,6 +22,18 @@ We can self-destruct the metamorphic contract and then redeploy it to the same a
 
 Since the contract was self destructed, all storage slots are wiped. Meaning this is terrible for upgradable contracts.
 
+Metamorphic contracts are mostly used to store and fetch what would be 'immutable' values in a cheaper way over using SLOAD and SSTORE. Our implementation attempts to change the hardcoded return value of the `get()` function. By hardcoded i mean the return value is not reading from a storage slot.
+
+The `get()` function bytecode implementation in solidity would be
+
+```solidity
+function get() external view returns(uint256) {
+    return 1;
+}
+```
+
+Deploying this normally would mean `get()` should always return `1` in all circumstances and can never be changed. We use the metamorphic properties of combining create2 and self destruct in a unique way to actually change this hardcoded return value.
+
 # Time to play around with **METAMORPHISM**
 
 This is a simple implementation, the same logic can be applied to different scenarios. But here's an overview of how you can test this out yourself
