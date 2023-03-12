@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.16;
 
-import "./MetamorphicTemplate.sol";
+import "./MetamorphicFactoryTemplate.sol";
 
 interface Metamorphic {
     function get() external pure returns (uint256);
